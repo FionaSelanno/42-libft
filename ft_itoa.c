@@ -1,6 +1,17 @@
-#include "libft.h"
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fiselann <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/25 16:00:33 by fiselann          #+#    #+#             */
+/*   Updated: 2022/01/25 16:05:00 by fiselann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "libft.h"
+/*
 int	ft_len_result(int n)
 {
 	int	len;
@@ -11,8 +22,8 @@ int	ft_len_result(int n)
 		n = -n;
 	while ((n /= 10))
 		len++;
-	return (len + 1); //+1 for numbers 0 - 9
-}
+	return (len + 1);
+}*/
 
 char	*ft_strcpy(char *dst, const char *src)
 {
@@ -32,7 +43,8 @@ char *ft_itoa(int n)
 {
 	char	*result;
 
-	result = malloc(sizeof(char) * ft_len_result(n) + 1);
+	result = malloc(sizeof(char) * 2); 
+	//only allocate space for 2 chars: the current char and '\0', Therefor ft_len_result(int); is not needed.
 	if (!result)
 		return (NULL);
 	if (n == -2147483648)
@@ -55,21 +67,3 @@ char *ft_itoa(int n)
 	}
 	return (result);
 }
-
-/*
-int	main(void)
-{
-	int	num = 10;
-	int	num1 = 7364973;
-	int	num2 = -2147483648;
-	int	num3 = 2147483647;
-	
-	printf("len num: %d\n", ft_len_result(num));
-	printf("len num1: %d\n", ft_len_result(num1));
-	printf("len num2: %d\n", ft_len_result(num2));
-	printf("len num3: %d\n", ft_len_result(num3));
-	printf("num: %s\n", ft_itoa(num));
-	printf("num1: %s\n", ft_itoa(num1));
-	printf("num2: %s\n", ft_itoa(num2));
-	printf("num3: %s\n", ft_itoa(num3));
-}*/
