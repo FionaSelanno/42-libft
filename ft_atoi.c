@@ -6,25 +6,34 @@
 /*   By: fiselann <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 12:33:51 by fiselann          #+#    #+#             */
-/*   Updated: 2022/01/11 14:08:28 by fiselann         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:34:10 by fiselann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
+#define LLMAX 9223372036854775807ull
+
+static int	check_limits(unsigned long long nb, int neg)
+{
+	if (nb >= LLMAX && neg == 1)
+		return (-1);
+	if (nb >= LLMAX + 1 && neg == -1)
+		return (0);
+	return (1);
+}
+
 int	ft_atoi(const char *str)
 {
-	long	i;
-	long	neg;
-	long	result;
+	int					i;
+	unsigned long long	nb;
+	int					neg;
 
 	i = 0;
+	nb = 0;
 	neg = 1;
-	result = 0;
-	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-	{
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
 		i++;
-	}
-	if (str[i] == '+' || str[i] == '-')
+	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
 			neg = -neg;
@@ -32,20 +41,19 @@ int	ft_atoi(const char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		result = (result * 10) + str[i] - 48;
+		nb = (nb * 10) + (str[i] - '0');
 		i++;
 	}
-	return (result * neg);
+	if (check_limits(nb, neg) == -1 || check_limits(nb, neg) == 0)
+		return (check_limits(nb, neg));
+	return (nb * neg);
 }
 /*
+ * LLMAX is max value of unsigned long long
 #include <stdio.h>
-#include <stdlib.h>
-
-int	main(int argc, char **argv)
+int	main(void)
 {
-	if (argc != 2)
-		printf("to many or to few arguments");
-	else
-		printf("OR: %d\nMINE: %d\n", atoi(argv[1]), ft_atoi(argv[1]));
+	char *str = "18446744073709551615";
+	printf("result MINE: %d | OR: %d\n", atoi(str), ft_atoi(str));
 }
 */
