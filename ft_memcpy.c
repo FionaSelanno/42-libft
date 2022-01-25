@@ -6,7 +6,7 @@
 /*   By: fiselann <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 11:42:19 by fiselann          #+#    #+#             */
-/*   Updated: 2022/01/25 12:08:37 by fiselann         ###   ########.fr       */
+/*   Updated: 2022/01/25 13:20:58 by fiselann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	src_conv = (char *)src;
 	while (n > 0)
 	{
-		*dst_conv++ = *src_conv++;
+		*(dst_conv++) = *(src_conv++);
 		n--;
 	}
 	return (dst);
 }
-
+/*
 #include <stdio.h>
 #include <string.h>
 
@@ -85,4 +85,4 @@ int	main(void)
     printf("OR: memmove overlap : %s\n ", str1);
 
     return 0;
-}
+}*/
