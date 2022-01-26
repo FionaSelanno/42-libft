@@ -10,12 +10,14 @@ int	ft_tabsize(char const *s, char c)
 	count_words = 0;
 	while(s[i])
 	{
-		if (s[i] == c)
+		while(s[i] == c)
+			i++;
+		if (s[i] != c) //first letter of word is encountered
 			count_words++;
-		s++;
+		while(s[i] && (s[i] != c)) //skip the next letter off the same word.
+			i++;
 	}
-	printf("words: %zu\n", count_words);
-	return (count_words + 1);
+	return (count_words);
 }
 
 
@@ -24,37 +26,31 @@ char	**ft_split(char const *s, char c)
 	char	**tab;
 	size_t	i_tab;
 	size_t	i;
-	size_t	i_nextword;
+	size_t	lenword;
 
 	if (!s)
 		return (NULL);;
-	printf("begin ft_split\n");
-	tab = malloc(sizeof(*tab) * ft_tabsize(s, c) + 1);
-	printf("malloc?\n");
+	tab = malloc(sizeof(char *) * (ft_tabsize(s, c)) + 1);
 	if (!tab)
 		return (NULL);
 	i = 0;
 	i_tab = 0;
-	i_nextword = 0;
-	while (i <= ft_strlen(s))
+	while (s[i])
 	{
-		while (s[0] == c)
-			s++;
-		while (s[i] != c)
+		while (s[i] == c)
 			i++;
-		//printf("still ok?\n");
-		if (s[i] == c)
+		lenword = 0;
+		while (s[i] && s[i]!= c)
 		{
-			//printf("in if\n");
-			tab[i_tab] = ft_substr(s, i_nextword, (i - i_nextword));
-			//printf("string: %s\n", s);
-			//printf("i: %zu\n", i);
-			//printf("nextword: %zu\n", i_nextword);
-			//printf("substr: %s\n", ft_substr(s, i_nextword, (i - i_nextword)));
-			i_nextword = ++i;
-			i_tab++;
+			lenword++;
+			i++;
+		}
+		if (lenword > 0) //meaning there is a word
+		{
+			tab[i_tab++] = ft_substr(s, (i - lenword), lenword); //i - lenword is the starting position to make a substr
 		}
 	}
+
 	tab[i_tab] = 0;
 	return (tab);
 }
@@ -70,13 +66,13 @@ void	print_tab(char **tab)
 		i++;
 	}
 }
-/*
+
 int	main(void)
 {
-	char str[] = "some.text.to.split";
+	char str[] = ".some...text.to.split";
 	char c = '.';
 	print_tab(ft_split(str, c));
 	char *str1 = "\0aa\0bb";
 	char c1 = '\0';
 	print_tab(ft_split(str1, c1));
-}*/
+}
