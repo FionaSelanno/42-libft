@@ -21,11 +21,19 @@ int	ft_tabsize(char const *s, char c)
 	count_words = 0;
 	while (s[i])
 	{
+<<<<<<< HEAD
 		while (s[i] == c)
 			i++;
 		if (s[i] != c)
 			count_words++;
 		while (s[i] && (s[i] != c))
+=======
+		while(s[i] == c)
+			i++;
+		if (s[i] != c) //first letter of word is encountered
+			count_words++;
+		while(s[i] && (s[i] != c)) //skip the next letter off the same word.
+>>>>>>> d53b18b73832dc2621c333b31cf219279f21779d
 			i++;
 	}
 	return (count_words);
@@ -41,6 +49,7 @@ void	*ft_filltab(char **tab, char const *s, char c)
 {
 	size_t	i_s;
 	size_t	i_tab;
+<<<<<<< HEAD
 	size_t	lenword;
 
 	i_s = 0;
@@ -60,8 +69,34 @@ void	*ft_filltab(char **tab, char const *s, char c)
 			tab[i_tab++] = ft_substr(s, (i_s - lenword), lenword);
 			if (tab[i_tab] == NULL)
 				return (ft_leakfix(tab[i_tab]));
+=======
+	size_t	i;
+	size_t	lenword;
+
+	if (!s)
+		return (NULL);;
+	tab = malloc(sizeof(char *) * (ft_tabsize(s, c)) + 1);
+	if (!tab)
+		return (NULL);
+	i = 0;
+	i_tab = 0;
+	while (s[i])
+	{
+		while (s[i] == c)
+			i++;
+		lenword = 0;
+		while (s[i] && s[i]!= c)
+		{
+			lenword++;
+			i++;
+		}
+		if (lenword > 0) //meaning there is a word
+		{
+			tab[i_tab++] = ft_substr(s, (i - lenword), lenword); //i - lenword is the starting position to make a substr
+>>>>>>> d53b18b73832dc2621c333b31cf219279f21779d
 		}
 	}
+
 	tab[i_tab] = 0;
 	return (tab);
 }
@@ -102,4 +137,7 @@ int	main(void)
 	char c1 = '\0';
 	print_tab(ft_split(str1, c1));
 }
+<<<<<<< HEAD
 */
+=======
+>>>>>>> d53b18b73832dc2621c333b31cf219279f21779d
