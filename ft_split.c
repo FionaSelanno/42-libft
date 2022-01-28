@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fiselann <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/28 10:33:50 by fiselann          #+#    #+#             */
+/*   Updated: 2022/01/28 11:12:45 by fiselann         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <stdio.h>
 
 int	ft_tabsize(char const *s, char c)
 {
@@ -8,57 +19,68 @@ int	ft_tabsize(char const *s, char c)
 
 	i = 0;
 	count_words = 0;
-	while(s[i])
+	while (s[i])
 	{
-		if (s[i] == c)
+		while (s[i] == c)
+			i++;
+		if (s[i] != c)
 			count_words++;
-		s++;
+		while (s[i] && (s[i] != c))
+			i++;
 	}
-	printf("words: %zu\n", count_words);
-	return (count_words + 1);
+	return (count_words);
 }
 
-
-char	**ft_split(char const *s, char c)
+void	*ft_leakfix(void *tab)
 {
-	char	**tab;
-	size_t	i_tab;
-	size_t	i;
-	size_t	i_nextword;
+	free(tab);
+	return (NULL);
+}
 
-	if (!s)
-		return (NULL);;
-	printf("begin ft_split\n");
-	tab = malloc(sizeof(*tab) * ft_tabsize(s, c) + 1);
-	printf("malloc?\n");
-	if (!tab)
-		return (NULL);
-	i = 0;
+void	*ft_filltab(char **tab, char const *s, char c)
+{
+	size_t	i_s;
+	size_t	i_tab;
+	size_t	lenword;
+
+	i_s = 0;
 	i_tab = 0;
-	i_nextword = 0;
-	while (i <= ft_strlen(s))
+	while (s[i_s])
 	{
-		while (s[0] == c)
-			s++;
-		while (s[i] != c)
-			i++;
-		//printf("still ok?\n");
-		if (s[i] == c)
+		while (s[i_s] == c)
+			i_s++;
+		lenword = 0;
+		while (s[i_s] && s[i_s] != c)
 		{
-			//printf("in if\n");
-			tab[i_tab] = ft_substr(s, i_nextword, (i - i_nextword));
-			//printf("string: %s\n", s);
-			//printf("i: %zu\n", i);
-			//printf("nextword: %zu\n", i_nextword);
-			//printf("substr: %s\n", ft_substr(s, i_nextword, (i - i_nextword)));
-			i_nextword = ++i;
-			i_tab++;
+			lenword++;
+			i_s++;
+		}
+		if (lenword > 0)
+		{
+			tab[i_tab++] = ft_substr(s, (i_s - lenword), lenword);
+			if (tab[i_tab] == NULL)
+				return (ft_leakfix(tab[i_tab]));
 		}
 	}
 	tab[i_tab] = 0;
 	return (tab);
 }
 
+char	**ft_split(char const *s, char c)
+{
+	char	**tab;
+
+	if (!s)
+		return (NULL);
+	tab = malloc(sizeof(char *) * (ft_tabsize(s, c)) + 1);
+	if (!tab)
+		return (ft_leakfix(*tab));
+	else
+		(ft_filltab(tab, s, c));
+	return (tab);
+}
+/*
+#include <stdio.h>
 void	print_tab(char **tab)
 {
 	int	i;
@@ -70,13 +92,14 @@ void	print_tab(char **tab)
 		i++;
 	}
 }
-/*
+
 int	main(void)
 {
-	char str[] = "some.text.to.split";
+	char str[] = ".some...text.to.split";
 	char c = '.';
 	print_tab(ft_split(str, c));
 	char *str1 = "\0aa\0bb";
 	char c1 = '\0';
 	print_tab(ft_split(str1, c1));
-}*/
+}
+*/
