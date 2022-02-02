@@ -6,7 +6,7 @@
 /*   By: fiselann <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 11:11:01 by fiselann          #+#    #+#             */
-/*   Updated: 2022/01/10 16:21:32 by fiselann         ###   ########.fr       */
+/*   Updated: 2022/02/02 10:36:08 by fiselann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	ft_strncmp(const char *str1, const char *str2, size_t n)
 	i = 0;
 	str1_conv = (unsigned char *)str1;
 	str2_conv = (unsigned char *)str2;
+	if (n == 0)
+		return (0);
 	while (str1_conv[i] || str2_conv[i])
 	{
 		if (str1_conv[i] != str2_conv[i] && i < n)
@@ -57,5 +59,9 @@ int	main(void)
 	char str8[] = "abcd";
 	printf("MINE - should return neg: %d\n", ft_strncmp(str7, str8, 4));
 	printf("OR - should return neg: %d\n", strncmp(str7, str8, 4));
+	printf("MINE: %d\n", ft_strncmp("zyxbcdefgh", "abcdwxyz", 0));
+	printf("OR: %d\n", strncmp("zyxbcdefgh", "abcdwxyz", 0));
+	printf("MINE: %d\n", ft_strncmp("abcdefgh", "", 0));
+	printf("OR: %d\n", strncmp("abcdefgh", "", 0));
 }
 */
