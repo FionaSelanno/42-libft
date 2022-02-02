@@ -6,12 +6,6 @@
 /*   By: fiselann <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:33:50 by fiselann          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/02/02 11:22:00 by fiselann         ###   ########.fr       */
-=======
-/*   Updated: 2022/01/28 13:06:20 by fiselann         ###   ########.fr       */
->>>>>>> ba26b2c77bbc6bf611b9eaff7b77fedb4e689e1b
-/*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
@@ -122,7 +116,6 @@ int	main(void)
 	char str2[] = "testingthis ";
 	char c2 = ' ';
 	print_tab(ft_split(str2, c2));
-<<<<<<< HEAD
 	print_tab(ft_split("          ", ' '));
 	printf("***test4 war machine***\n");
 	print_tab(ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse", ' '));
@@ -134,8 +127,5 @@ int	main(void)
 	print_tab(ft_split("lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultricies diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.", 'z'));
 	printf("***test8 war machine***\n");
 	print_tab(ft_split("", 'z'));
-
-=======
->>>>>>> ba26b2c77bbc6bf611b9eaff7b77fedb4e689e1b
 }
 */
